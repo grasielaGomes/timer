@@ -7,10 +7,10 @@ export const Header = () => {
     <HeaderContainer>
       <span>Logo</span>
       <nav>
-        <NavLink to="/" end title="timer">
+        <NavLink to="/" end title="Timer">
           <Timer size={24} />
         </NavLink>
-        <NavLink to="/history" title="history">
+        <NavLink to="/history" title="History">
           <Scroll size={24} />
         </NavLink>
       </nav>
