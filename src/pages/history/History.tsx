@@ -1,53 +1,52 @@
-import { HistoryContainer, HistoryList, Status } from "./History.styles";
+import { differenceInMinutes } from "date-fns";
+import {
+  HistoryContainer,
+  HistoryList,
+  Status,
+  COLORS as colors,
+  LABELS as labels,
+  useHistory
+} from "./";
 
 export const History = () => {
+  const { cyclesSorted } = useHistory();
   return (
     <HistoryContainer>
-      <h1>Meu historico</h1>
+      <h1>Meu Histórico</h1>
 
       <HistoryList>
         <table>
           <thead>
             <tr>
-              <th>Tarefa</th>
-              <th>Duração</th>
-              <th>Início</th>
-              <th>Status</th>
+              {["Tarefa", "Duração", "Início", "Status"].map((value) => (
+                <th key={value}>{value}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="yellow">Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="red">Interrompido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
+            {cyclesSorted.map(
+              ({ id, createAt, task, minutesAmount, status }) => {
+                const minutes = differenceInMinutes(new Date(), createAt);
+                const startedAt = `${minutes} ${
+                  minutes > 1 ? "minutos" : "minuto"
+                } atrás`;
+                const duration = `${minutesAmount} ${
+                  minutesAmount > 1 ? "minutos" : "minuto"
+                }`;
+                return (
+                  <tr key={id}>
+                    <td>{task}</td>
+                    <td>{duration}</td>
+                    <td>{startedAt}</td>
+                    <td>
+                      <Status statusColor={colors[status]}>
+                        {labels[status]}
+                      </Status>
+                    </td>
+                  </tr>
+                );
+              }
+            )}
           </tbody>
         </table>
       </HistoryList>
