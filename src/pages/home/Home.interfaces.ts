@@ -1,4 +1,4 @@
-export type Status = "started" | "stopped" | "finished";
+type Status = "started" | "stopped" | "finished";
 
 export type NewCycleFormData = { task: string; minutesAmount: number };
 
