@@ -5,7 +5,7 @@ import { HeaderContainer } from "./";
 export const Header = () => {
   return (
     <HeaderContainer>
-      <span>Logo</span>
+      <h3>Meu Timer</h3>
       <nav>
         <NavLink to="/" end title="Timer">
           <Timer size={24} />
