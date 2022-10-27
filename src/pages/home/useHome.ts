@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { differenceInSeconds } from "date-fns";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { differenceInSeconds } from "date-fns";
 import { CycleI, NewCycleFormData } from "./";
-import { cyclesStore } from "../../stores/Cycles.store";
+import { cyclesStore } from "@/stores";
 
 export const useHome = () => {
   const newCycleValidationSchema = zod.object({
@@ -50,7 +50,7 @@ export const useHome = () => {
     (cycle) => cycle.status === "started"
   );
 
-  let timer: number;
+  let timer: NodeJS.Timer;
 
   useEffect(() => {
     if (currentCycle) {
